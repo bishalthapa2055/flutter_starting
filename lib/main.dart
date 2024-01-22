@@ -1,3 +1,5 @@
+import 'package:demo/pages/first.dart';
+import 'package:demo/pages/second.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,7 +10,7 @@ class TadasAppProject extends StatelessWidget {
   const TadasAppProject({super.key});
 
   // This widget is the+ root of your application.
-  @override
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -17,8 +19,13 @@ class TadasAppProject extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 6, 129, 33)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Bishal Project'),
+      // home: const MyHomePage(title: 'Bishal Project'),
       debugShowCheckedModeBanner: false,
+      routes: {
+        "/" : (context) =>const  MyHomePage(title: "title"),
+        "/first" : (context) =>const FirstPage(),
+        "/second" : (context) =>const SecodnPage()
+      },
     );
   }
 }
@@ -55,49 +62,23 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: const Text(
-          "Settings",
+          "Navigations",
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
-          children: [
-            const SizedBox(
-              height: 2,
-            ),
-            Image.network(
-              "https://images.unsplash.com/photo-1705232497902-1103b37294c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8",
-              width: 300,
-              height: 300,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.all(15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Usernamne"),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("Notifications"),
-                Switch(
-                    value: value,
-                    onChanged: (newValue) {
-                      setState(() {
-                        value = newValue;
-                      });
-                    }),
-              ],
-            ),
-            ElevatedButton(onPressed: () {}, child: const Text("Save"),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
-              onPrimary: Colors.white
-            ),)
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            TextButton(onPressed:(){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FirstPage(name : "Bishal Thapa")));
+            }
+            , child: Text("First Page")),
+            // SizedBox(height: ""),
+            TextButton(onPressed:(){
+              Navigator.pushNamed(context, "/second" , arguments: "thapa");
+            }, child: Text("Second Page")),
           ],
         ),
       ),
